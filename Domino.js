@@ -33,27 +33,28 @@ Domino.prototype.initialize = function (left, right, gridX, gridY, orientation, 
 
     // Domino orientation set
     switch (orientation) {
-        case 'S':
+        case 's':
             this.domino.x = this.originX + 25 * this.scale;
             this.domino.y = this.originY - 25 * this.scale;
             this.domino.addChild(new Pips(left, 0));
             this.domino.addChild(new Pips(right, 1));
             this.domino.rotation = 90;
             break;
-        case 'N':
+        case 'n':
             this.domino.x = this.originX + 25 * this.scale;
             this.domino.y = this.originY - 75 * this.scale;
             this.domino.addChild(new Pips(left, 1));
             this.domino.addChild(new Pips(right, 0));
+            this.gridY -= 2;
             this.domino.rotation = 90;
             break;
-        case 'E':
+        case 'e':
             this.domino.x = this.originX - 25 * this.scale;
             this.domino.y = this.originY - 25 * this.scale;
             this.domino.addChild(new Pips(left, 0));
             this.domino.addChild(new Pips(right, 1));
             break;
-        case 'W':
+        case 'w':
             this.domino.x = this.originX - 75 * this.scale;
             this.domino.y = this.originY - 25 * this.scale;
             this.domino.addChild(new Pips(left, 1));
@@ -67,26 +68,31 @@ Domino.prototype.initialize = function (left, right, gridX, gridY, orientation, 
     this.addChild(this.domino);
 };
 
-Domino.prototype.getPositions = function () {
+Domino.prototype.getPositions = function (quadrant, side) {
+    var position = {
+        x: this.gridX,
+        y: this.gridY,
+        o: 'e'
+    };
 
-    return {
-        top: {
-            left: {
-                x: this.gridX - 2,
-                y: this.gridY,
-                o: 'W'
-            },
-            top: {
-                x: this.gridX,
-                y: this.gridY - 2,
-                o: 'N'
-            },
-            right: {
-                x: this.gridX + 2,
-                y: this.gridY,
-                o: 'E'
-            }
+    if(['n', 's'].indexOf(quadrant) != -1){
+        position.o = side;
+
+        if(quadrant == 'n'){
+            position.y -= 2;
+        } else if(quadrant == 's') {
+            position.y += 4;
+        }
+    } else if(['e', 'w'].indexOf(quadrant) != -1){
+        position.o = side;
+
+        if(quadrant == 'e'){
+            position.x += 4;
+        } else if(quadrant == 'w') {
+            position.x -= 2;
         }
     }
+
+    return position;
 
 };
