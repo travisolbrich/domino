@@ -14,32 +14,13 @@ Domino.prototype.initialize = function (left, right, gridX, gridY, orientation, 
     this.domino.scaleY = typeof scale !== 'undefined' ? scale : 1;
 
     //Dominoes are centered based on a grid
-    this.centerX = gridX * 25 * this.scale;
-    this.centerY = gridY * 25 * this.scale;
+    this.originX = gridX * 25 * this.scale;
+    this.originY = gridY * 25 * this.scale;
+    this.gridX = gridX;
+    this.gridY = gridY;
     this.orientation = orientation;
 
-    switch (orientation) {
-        case 'N':
-            this.domino.x = this.centerX - 25 * this.scale;
-            this.domino.y = this.centerY + 50 * this.scale;
-            this.domino.rotation = -90;
-            break;
-        case 'S':
-            this.domino.x = this.centerX + 25 * this.scale;
-            this.domino.y = this.centerY - 50 * this.scale;
-            this.domino.rotation = 90;
-            break;
-        case 'W':
-            this.domino.rotation = 180;
-            this.domino.x = this.centerX + 50 * this.scale;
-            this.domino.y = this.centerY + 25 * this.scale;
-            break;
-        default:
-            this.domino.x = this.centerX - 50 * this.scale;
-            this.domino.y = this.centerY - 25 * this.scale;
-            break;
-    }
-
+    // Domino shape
     var background = new createjs.Shape();
     var divider = new createjs.Shape();
 
@@ -49,26 +30,62 @@ Domino.prototype.initialize = function (left, right, gridX, gridY, orientation, 
 
     this.domino.addChild(background);
     this.domino.addChild(divider);
-    this.domino.addChild(new Pips(left, 0));
-    this.domino.addChild(new Pips(right, 1));
+
+    // Domino orientation set
+    switch (orientation) {
+        case 'S':
+            this.domino.x = this.originX + 25 * this.scale;
+            this.domino.y = this.originY - 25 * this.scale;
+            this.domino.addChild(new Pips(left, 0));
+            this.domino.addChild(new Pips(right, 1));
+            this.domino.rotation = 90;
+            break;
+        case 'N':
+            this.domino.x = this.originX + 25 * this.scale;
+            this.domino.y = this.originY - 75 * this.scale;
+            this.domino.addChild(new Pips(left, 1));
+            this.domino.addChild(new Pips(right, 0));
+            this.domino.rotation = 90;
+            break;
+        case 'E':
+            this.domino.x = this.originX - 25 * this.scale;
+            this.domino.y = this.originY - 25 * this.scale;
+            this.domino.addChild(new Pips(left, 0));
+            this.domino.addChild(new Pips(right, 1));
+            break;
+        case 'W':
+            this.domino.x = this.originX - 75 * this.scale;
+            this.domino.y = this.originY - 25 * this.scale;
+            this.domino.addChild(new Pips(left, 1));
+            this.domino.addChild(new Pips(right, 0));
+            break;
+    }
+
+
     this.pips = [left, right];
 
     this.addChild(this.domino);
 };
 
 Domino.prototype.getPositions = function () {
-    if(['E', 'W'].indexOf(this.orientation) != -1){
-        var wmod = 2;
-        var hmod = 1;
-    } else {
-        var wmod = 1;
-        var hmod = 2;
-    }
 
     return {
-        "left": {
-            x: this.centerX ,
-            y: 2
+        top: {
+            left: {
+                x: this.gridX - 2,
+                y: this.gridY,
+                o: 'W'
+            },
+            top: {
+                x: this.gridX,
+                y: this.gridY - 2,
+                o: 'N'
+            },
+            right: {
+                x: this.gridX + 2,
+                y: this.gridY,
+                o: 'E'
+            }
         }
     }
 
