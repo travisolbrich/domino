@@ -21,22 +21,22 @@ Domino.prototype.initialize = function (left, right, gridX, gridY, orientation, 
     switch (orientation) {
         case 'N':
             this.domino.x = this.centerX - 25 * this.scale;
-            this.domino.y = this.centerY + 75 * this.scale;
+            this.domino.y = this.centerY + 50 * this.scale;
             this.domino.rotation = -90;
             break;
         case 'S':
             this.domino.x = this.centerX + 25 * this.scale;
-            this.domino.y = this.centerY - 25 * this.scale;
+            this.domino.y = this.centerY - 50 * this.scale;
             this.domino.rotation = 90;
             break;
         case 'W':
             this.domino.rotation = 180;
             this.domino.x = this.centerX + 50 * this.scale;
-            this.domino.y = this.centerY + 50 * this.scale;
+            this.domino.y = this.centerY + 25 * this.scale;
             break;
         default:
             this.domino.x = this.centerX - 50 * this.scale;
-            this.domino.y = this.centerY - 0 * this.scale;
+            this.domino.y = this.centerY - 25 * this.scale;
             break;
     }
 
