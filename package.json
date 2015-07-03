@@ -1,0 +1,11 @@
+{
+  "name": "domino",
+  "version": "1.0.0",
+  "description": "A basic dominos engine",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Travis Olbrich",
+  "license": "ISC"
+}

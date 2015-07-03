@@ -1,0 +1,28 @@
+{
+  "name": "domino",
+  "main": "index.html",
+  "version": "0.0.0",
+  "authors": [
+    "Travis Olbrich <travis.olbrich@gmail.com>"
+  ],
+  "description": "A simple app allowing for the placement of dominos on a board.",
+  "keywords": [
+    "domino",
+    "dominoes",
+    "game",
+    "board",
+    "boardgame"
+  ],
+  "license": "MIT",
+  "homepage": "travisolbrich.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "easeljs": "~0.8.1"
+  }
+}
